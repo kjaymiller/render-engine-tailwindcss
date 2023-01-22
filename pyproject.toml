@@ -12,7 +12,6 @@ dependencies = ["render-engine>=2023.1.3a1", "pytailwindcss"]
 
 [project.optional-dependencies]
 dev = ["pytest", "pytest-mock"]
-docs = ["mkdocs", "mkdocs-material", "mkdocstrings[python]"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -20,7 +19,6 @@ package-dir = {"" = "src"}
 [project.urls]
 homepage = "https://github.com/kjaymiller/render_engine/"
 repository = "https://github.com/kjaymiller/render_engine/"
-documentation = "https://render-engine.readthedocs.io/en/latest/"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
