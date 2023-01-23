@@ -11,7 +11,7 @@ readme = "README.md"
 dependencies = ["render-engine>=2023.1.3a1", "pytailwindcss"]
 
 [project.optional-dependencies]
-dev = ["pytest", "pytest-mock"]
+dev = ["pytest"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
