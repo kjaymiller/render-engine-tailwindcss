@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "render_engine_tailwindcss"
-version = "2023.1.1"
+version = "2023.1.1a2"
 description = "tailwindcss-parser for Render Engine"
 readme = "README.md"
 

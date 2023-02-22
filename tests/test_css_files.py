@@ -25,7 +25,7 @@ def test_each_file_modified(tmp_path):
 
     # Create a site object
     parse_css_files(static_path, output_path) 
-    assert len(list(output_path.iterdir())) == 2
+    assert len(list(output_path.joinpath('static').iterdir())) == 2
 
 
 def test_files_are_recursive(tmp_path):
@@ -44,7 +44,7 @@ def test_files_are_recursive(tmp_path):
     # Create a site object
     parse_css_files(static_path, output_path) 
     assert len(list(output_path.glob("*.css"))) == 1
-    assert len(list(pathlib.Path(output_path / "pre").glob("*.css"))) == 1
+    assert len(list(pathlib.Path(output_path / "static" / "pre").glob("*.css"))) == 1
 
 
 def test_non_css_files_are_ignored(tmp_path):
@@ -57,4 +57,4 @@ def test_non_css_files_are_ignored(tmp_path):
     static_path.joinpath("other_file.txt").write_text("No File")
     # Create a site object
     parse_css_files(static_path, output_path) 
-    assert len(list(output_path.iterdir())) == 1
+    assert len(list(output_path.joinpath("static").iterdir())) == 1

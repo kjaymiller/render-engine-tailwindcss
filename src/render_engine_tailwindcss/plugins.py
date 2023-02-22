@@ -1,4 +1,5 @@
 from render_engine.hookspecs import hook_impl
+import logging
 import pytailwindcss
 import pathlib
 
@@ -9,8 +10,10 @@ def parse_css_files(
         ) -> None:
 
     """Parses the CSS files in the directory and creates a file for each in the output_path"""
-    for file in pathlib.Path(static_path).glob("**/*.css"):
-        output_file = pathlib.Path(output_path / file.relative_to(static_path)).absolute()
+    print(list(pathlib.Path(static_path).rglob("**/*.css")))
+    for file in pathlib.Path(static_path).rglob("**/*.css"):
+        logging.info(f"Running Tailwind on {file}")
+        output_file = pathlib.Path(output_path).joinpath(static_path).joinpath(file.relative_to(static_path)).absolute()
         pytailwindcss.run(
             auto_install=True,
             tailwindcss_cli_args=[
@@ -23,5 +26,6 @@ def parse_css_files(
 
 class TailwindCSS:
     @hook_impl
-    def post_build_site(site: "Site"):
+    def post_build_site(site: "Site") -> None:
+        print("running_post_build_site")
         parse_css_files(site.static_path, site.output_path)
