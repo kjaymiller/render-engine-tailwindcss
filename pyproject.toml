@@ -1,10 +1,13 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools", "wheel", ""setuptools_scm"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
 
 [project]
 name = "render_engine_tailwindcss"
-version = "2023.1.2a2"
+dynamic = ["version"]
 description = "tailwindcss-parser for Render Engine"
 readme = "README.md"
 
