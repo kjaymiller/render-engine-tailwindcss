@@ -3,6 +3,11 @@ import logging
 import pytailwindcss
 import pathlib
 
+default_settings = {
+    "static_path": "static",
+    "output_path": "output",
+    "tailwindcss_cli_input_file": ["tailwind.css"],
+}
 
 def parse_css_files(
         static_path: str | pathlib.Path,
@@ -25,6 +30,13 @@ def parse_css_files(
         )
 
 class TailwindCSS:
+    @hook_impl
+    def pre_load_template(site, template):
+        if template_plugin:=template.plugin_settings.get("tailwindcss", False):
+            print("running_pre_load_template")
+
+            parse_css_files(site.static_path, site.output_path)
+
     @hook_impl
     def post_build_site(site: "Site") -> None:
         print("running_post_build_site")
