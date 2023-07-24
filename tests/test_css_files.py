@@ -1,7 +1,5 @@
 import pathlib
-import dataclasses
-
-import pytest
+import logging
 
 from render_engine_tailwindcss.plugins import parse_css_files
 
@@ -21,11 +19,16 @@ def test_each_file_modified(tmp_path):
     static_path.joinpath("style2.css").write_text(css_text)
 
     # Create an output folder
-    output_path = tmp_path.joinpath("output")
-
+    output_path = tmp_path / "output"
+    logging.info(f"{static_path=}, {output_path=}")
+    result_path = output_path.joinpath("/" / static_path)
+    logging.info(f"{result_path=}")
     # Create a site object
-    parse_css_files(static_path, output_path) 
-    assert len(list(output_path.joinpath('static').iterdir())) == 2
+    parse_css_files(
+        static_path=static_path,
+        output_path=output_path,
+    ) 
+    assert len(list(pathlib.Path(output_path).joinpath("static").iterdir())) ==2
 
 
 def test_files_are_recursive(tmp_path):
@@ -43,7 +46,7 @@ def test_files_are_recursive(tmp_path):
     
     # Create a site object
     parse_css_files(static_path, output_path) 
-    assert len(list(output_path.glob("*.css"))) == 1
+    assert len(list(output_path.rglob("*.css"))) == 2
     assert len(list(pathlib.Path(output_path / "static" / "pre").glob("*.css"))) == 1
 
 
