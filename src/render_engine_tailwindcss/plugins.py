@@ -1,4 +1,5 @@
 from render_engine.hookspecs import hook_impl
+from render_engine.site import Site
 import logging
 import pytailwindcss
 import pathlib
