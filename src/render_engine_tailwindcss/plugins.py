@@ -27,7 +27,7 @@ def parse_css_files(
         logging.info(f"Running Tailwind on {input_file=}")
         
 
-        output_file = pathlib.Path(output_path) / static_path.name / input_file.relative_to(static_path)
+        output_file = pathlib.Path(output_path) / pathlib.Path(static_path).name / input_file.relative_to(static_path)
         logging.info(f"{output_file=}")
 
         pytailwindcss.run(
