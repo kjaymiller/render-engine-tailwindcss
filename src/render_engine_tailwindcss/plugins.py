@@ -12,7 +12,7 @@ default_settings = {
 
 def parse_css_files(
         static_path: str | pathlib.Path,
-        output_path: str|pathlib.Path,
+        output_path: str | pathlib.Path,
         ) -> None:
 
     """

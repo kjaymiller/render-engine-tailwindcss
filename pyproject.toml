@@ -11,7 +11,7 @@ dynamic = ["version"]
 description = "tailwindcss-parser for Render Engine"
 readme = "README.md"
 
-dependencies = ["render-engine>=2023.1.3a1", "pytailwindcss"]
+dependencies = ["render-engine>=2023.10.3a5", "pytailwindcss"]
 
 [project.optional-dependencies]
 dev = ["pytest"]
