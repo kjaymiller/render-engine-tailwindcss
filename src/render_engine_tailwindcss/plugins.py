@@ -1,9 +1,8 @@
-from render_engine.hookspecs import hook_impl
+from render_engine.plugins import hook_impl
 from render_engine.site import Site
 import logging
 import pytailwindcss
 import pathlib
-import templates
 
 default_settings = {
     "static_path": "static",
