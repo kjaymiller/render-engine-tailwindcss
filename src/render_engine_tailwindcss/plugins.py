@@ -1,5 +1,6 @@
 from render_engine.plugins import hook_impl
 from render_engine.site import Site
+from jinja2 import Environment, DictLoader
 import logging
 import pytailwindcss
 import pathlib
@@ -10,6 +11,23 @@ default_settings = {
     "tailwindcss_cli_input_file": ["tailwind.css"],
     "tailwindcss_config_file": "tailwind.config.js",
 }
+
+def build_tailwindcss_config_file(plugins: list[str]|None = None) -> str:
+    """Builds the tailwind.config.js file from the plugins list."""
+    env = Environment(
+        loader=DictLoader(
+            {
+                "tailwind.config.js": """/** @type {import('tailwindcss').Config}*/
+module.exports = {
+    content: ['output/**/*.{html, js}']{% if plugins %},
+    plugins: [{{","|join(plugins)}}]
+    {% else %}
+    // plugins: []
+{% endif %}}""",
+            }
+        )
+    )
+    return env.get_template("tailwind.config.js").render(plugins=plugins) 
 
 def parse_css_files(
         static_path: str | pathlib.Path,
@@ -47,15 +65,13 @@ class TailwindCSS:
 
     @hook_impl
     def pre_build_site(site: "Site") -> None:
-        tailwind_config_file = site.site_settings['TailwindCSS']['tailwindcss_config_file']
+        tailwind_config_file = site.plugin_manager.plugin_settings['TailwindCSS']['tailwindcss_config_file']
         if not (config_path:=pathlib.Path(tailwind_config_file)).exists():
-            config_path.write_text("""/** @type {import('tailwindcss').Config} */
-module.exports = {
-    content: ['output/**/*.{html, js}'],
-    {% if plugins %}
-    plugins: [{{","|join(plugins)}}]
-    {% endif %}
-}""")
+            config_path.write_text(
+                build_tailwindcss_config_file(
+                    plugins=site.plugin_manager.plugin_settings['TailwindCSS'].get('plugins', None)
+                )
+            )
             
             
     @hook_impl
