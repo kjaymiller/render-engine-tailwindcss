@@ -11,13 +11,13 @@ dynamic = ["version"]
 description = "tailwindcss-parser for Render Engine"
 readme = "README.md"
 
-dependencies = ["render-engine>=2024.1.1a3", "pytailwindcss"]
+dependencies = ["render-engine[cli]>=2024.1.1a3", "pytailwindcss"]
 
 [project.optional-dependencies]
 dev = ["pytest"]
 
 [tool.setuptools]
-package-dir = {"" = "src"}
+package-dir = { "" = "src" }
 
 [project.urls]
 homepage = "https://github.com/kjaymiller/render_engine_tailwindcss/"
