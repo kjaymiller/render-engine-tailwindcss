@@ -14,6 +14,7 @@ readme = "README.md"
 dependencies = ["render-engine[cli]>=2024.11.2a1", "pytailwindcss"]
 
 [project.optional-dependencies]
+test = ["pytest"]
 dev = ["pytest"]
 
 [tool.setuptools]
