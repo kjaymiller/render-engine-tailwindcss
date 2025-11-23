@@ -9,3 +9,9 @@ test-coverage:
 
 check:
   just test
+
+release version:
+  gh release create {{version}} --generate-notes
+
+prelease version:
+  gh release create {{version}} -p --generate-notes
