@@ -53,3 +53,51 @@ Install the extension with pip:
     ```
 
 You can add multiple CSS files to the static path and they will all converted into their own files.
+
+## Development & Testing
+
+This project uses `just` for common development tasks and `nox` for testing across multiple Python versions.
+
+### Quick Start with Just
+
+```bash
+# Run tests
+just test
+
+# Run tests with coverage
+just test-coverage
+
+# Run both (if available)
+just check
+```
+
+### Using Nox for Multi-Version Testing
+
+Test the plugin across Python 3.11, 3.12, 3.13, and 3.14:
+
+```bash
+# Run tests on all Python versions
+nox -s test
+
+# Run all checks
+nox -s check
+```
+
+### Development Setup
+
+```bash
+# Install with uv (recommended)
+uv sync
+
+# Install with pip
+pip install -e ".[test]"
+
+# Run tests
+just test
+```
+
+## Available Just Commands
+
+- `just test` - Run pytest on current Python version
+- `just test-coverage` - Run pytest with coverage reporting
+- `just check` - Run tests
