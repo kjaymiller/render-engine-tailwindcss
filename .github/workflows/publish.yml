@@ -1,0 +1,27 @@
+name: Build distribution
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  # test:
+  #   uses: ./.github/workflows/test.yml
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    name: Deploy to PyPI
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: "true"
+      - run: echo "SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)" >> $GITHUB_ENV
+      # Allow prerelease if explicitly marked in pyproject.toml so we can prerelease in conjunction
+      # with engine updates.
+      - run: uv build --prerelease=explicit
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: ./dist
